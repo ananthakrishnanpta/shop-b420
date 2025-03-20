@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    header#site-header {
+        height: 20px;
+
+    }
+    main {
+        margin: auto;
+        margin-top: 60px;
+        max-width: 80%;
+
+        /* home page */
+
+        /* about page */
+    }
+    
+}
