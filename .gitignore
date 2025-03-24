@@ -1,7 +1,11 @@
 viirt/
 
 __pycache__/
+*.pyc 
+*.pyo
 
 migrations/
 
 db.sqlite3
+
+
