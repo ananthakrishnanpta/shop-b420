@@ -8,4 +8,35 @@
 
 This is my home page !!!
 
+<ol>
+    {% for product in products %}
+    
+    <li>{{product.name}} - Rs. {{product.price}}</li>
+    
+    {% endfor %}
+</ol>
+
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-sm-2 card text-center shadow-sm mx-3">
+            <div class="row h-50">
+                <img class="card-img-top" src="{{product.img.url}}" alt="Picture of {{product.name}}">
+            </div>
+            <div class="row card-body h-50">
+                <h5>{{product.name}}</h5>
+                <p class="card-text">
+                    Rs. {{product.price}}
+                </p>
+                <p class="card-caption">
+                    {{product.desc}}
+                </p>
+            </div>
+            <a href="" class="btn btn-primary w-60 center ">Add to Cart</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
 {% endblock %}

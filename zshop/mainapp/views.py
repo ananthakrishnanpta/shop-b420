@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 from django.template import loader
 from django.http import HttpResponse
+
+from .models import Product
+
 # Create your views here.
 
 
@@ -12,6 +15,8 @@ def homeView(request):
     # context data
     context = {
         # context data to be pulled from the DB
+        'products' : Product.objects.all()
+        # the above line of code is equivalent to SELECT * FROM product_table;
     }
     return HttpResponse(template.render(context, request))
 

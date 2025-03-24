@@ -16,6 +16,27 @@ body {
         max-width: 80%;
 
         /* home page */
+        .container {
+            .row {
+                .card {
+                    height: 300px;
+                    display: flex;
+                    align-items: center;
+                    .row {
+                        height: 50%;
+                        img {
+                            height: 100%;
+                            background-color: black;
+                        }
+                        
+                    }
+                    a.btn {
+                        font-size: smaller;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
 
         /* about page */
     }
