@@ -17,7 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# To include media files
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls'))
 ]
+
+# the following line allows us to use the given media path during development
+if settings.DEBUG == True:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+# The above code generates unique urls for each media file in the provided MEDIA_ROOT location

@@ -6,8 +6,9 @@
 
 {% block content %}
 
-This is my home page !!!
+<!-- The home page -->
 
+{% comment %}
 <ol>
     {% for product in products %}
     
@@ -15,16 +16,21 @@ This is my home page !!!
     
     {% endfor %}
 </ol>
+{% endcomment %}
 
-<div class="container">
+<div class="container z-0">
     <div class="row">
         {% for product in products %}
         <div class="col-sm-2 card text-center shadow-sm mx-3">
-            <div class="row h-50">
+            <div class="row">
                 <img class="card-img-top" src="{{product.img.url}}" alt="Picture of {{product.name}}">
             </div>
-            <div class="row card-body h-50">
-                <h5>{{product.name}}</h5>
+            <div class="row card-body">
+                <h5>
+                    <a href="">
+                        {{product.name}}
+                    </a>
+                </h5>
                 <p class="card-text">
                     Rs. {{product.price}}
                 </p>
