@@ -4,7 +4,7 @@ from django.template import loader
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-from django.views.generic import DetailView
+from django.views.generic import ListView, DetailView
 
 from .models import Product
 
@@ -24,10 +24,26 @@ def homeView(request):
     }
     return HttpResponse(template.render(context, request))
 
+# The above view can be implemented using CBV as below
+
+# class HomeView(ListView):
+#     model = Product
+#     template_name = 'home.html'
+#     context_object_name = 'products'
+
 class ProductDetails(DetailView):
     model = Product
     template_name = 'product_details.html'
     
+# The same view above can be implemented like below too using FBV
+
+# def productDetail(request, id):
+#     products = Product.objects.get(id=id)
+#     context = {
+#         'products' : products
+#     }
+#     template = loader.get_template('product_details.html')
+#     return HttpResponse(template.render(context, request))
 
 def aboutView(request):
     template = loader.get_template('about.html')
