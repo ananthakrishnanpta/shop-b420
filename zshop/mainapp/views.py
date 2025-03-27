@@ -35,6 +35,7 @@ class ProductDetails(DetailView):
     model = Product
     template_name = 'product_details.html'
     
+    
 # The same view above can be implemented like below too using FBV
 
 # def productDetail(request, id):
