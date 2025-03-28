@@ -4,10 +4,9 @@ from django.template import loader
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Product
-
 
 # Create your views here.
 
@@ -55,3 +54,20 @@ def contactView(request):
     template = loader.get_template('contact.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+
+
+# CRUD Operations
+
+# Read operation we have already explored above,
+# Let's explore the other operations
+
+# Create
+
+class AddProduct(CreateView):
+    model = Product
+    template_name = 'add_product.html'
+    fields = '__all__' # include all the fields in the form
+    # This view on successful addition of products, redirects the user to a 
+    # new page, to set this page, we do the below line of code
+    success_url = '/'
