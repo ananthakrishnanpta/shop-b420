@@ -24,6 +24,8 @@ Details : {{ product.name }}
             </div>
             <div class="row">
                 <a href="" class="btn btn-primary w-50">Add to Cart</a>
+                <a href="{% url 'edit_product' product.pk %}" class="btn btn-secondary w-50">Edit Product</a>
+                <a href="{% url 'del_product'  product.pk %}" class="btn btn-danger">Delete</a>
             </div>
             
         </div>

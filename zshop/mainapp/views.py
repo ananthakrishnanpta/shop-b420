@@ -71,3 +71,21 @@ class AddProduct(CreateView):
     # This view on successful addition of products, redirects the user to a 
     # new page, to set this page, we do the below line of code
     success_url = '/'
+
+# U - Update
+
+class EditProduct(UpdateView):
+    model = Product
+    context_object_name = 'product'
+    template_name = 'edit_product.html'
+    fields = ['img','price', 'stock', 'desc']
+    success_url = '/'
+
+# D - Delete
+
+
+class DelProduct(DeleteView):
+    model = Product
+    template_name = 'del_product.html'
+    success_url = '/'
+    
