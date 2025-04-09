@@ -24,7 +24,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls')),
-    path('accounts/', include('authentication.urls'))
+    path('accounts/', include('authentication.urls')),
+    path('accounts/',include('django.contrib.auth.urls'))
 ]
 
 # the following line allows us to use the given media path during development

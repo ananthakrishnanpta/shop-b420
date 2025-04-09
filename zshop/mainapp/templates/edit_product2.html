@@ -4,36 +4,38 @@ Details : {{ product.name }}
 {% endblock %}
 
 {% block content %}
+<form method="post" enctype="multipart/form-data" class="form-control">
 
+    {% csrf_token %}
 <div class="container">
     <div class="row">
         <div class="col h-100 shadow-sm mx-3">
             <img class="w-100" src="{{product.img.url}}" alt="">
+            {{form.img}}
         </div>
+        
         <div class="col">
             <div class="row">
                 <h3>
-                    {{product.name}}
+                    {{form.name}}
+                    
                 </h3>
                 <span>
-                    Rs.{{product.price}}
+                    Rs.{{form.price}}
                 </span>
                 <p>
-                    {{product.desc}}
+                    {{form.desc}}
                 </p>
             </div>
             <div class="row">
-                {% if user.is_staff %}
-                <a href="{% url 'edit_product' product.pk %}" class="btn btn-secondary w-50">Edit Product</a>
-                <a href="{% url 'del_product'  product.pk %}" class="btn btn-danger w-50">Delete</a>
-                {% else %}
-                <a href="" class="btn btn-primary w-50">Add to Cart</a>
-                {% endif %}
+                <button type="submit" class="btn btn-primary">
+                    Save
+                </button>
             </div>
             
         </div>
 
     </div>
-
+</form>
 </div>
 {% endblock %}
