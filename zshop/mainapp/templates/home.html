@@ -38,7 +38,7 @@
                     {{product.desc}}
                 </p>
             </div>
-            <a href="" class="btn btn-primary w-60 center ">Add to Cart</a>
+            <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-primary w-60 center ">Add to Cart</a>
         </div>
         {% endfor %}
     </div>
