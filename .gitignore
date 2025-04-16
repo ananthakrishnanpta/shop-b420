@@ -1,4 +1,5 @@
 viirt/
+virt/
 
 __pycache__/
 *.pyc 
@@ -9,3 +10,4 @@ migrations/
 db.sqlite3
 
 
+media/
