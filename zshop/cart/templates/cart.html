@@ -1,61 +1,80 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
-{{user.username}}'s Cart
+{{user}}'s Cart
+
 {% endblock %}
 
 {% block content %}
 
-<div class="container">
+<div class="container-fluid">
+    {% if items %}
 
     <table class="table">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Thumbnail</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Sub Total</th>
-                <th></th>
-            </tr>
+            <th>
+    
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Sub Total
+            </th>
+            <th>
+    
+            </th>
         </thead>
         <tbody>
             {% for item in items %}
-            <tr>
-                <td>{{item.id}}</td>
-                <td><img src="{{item.product.img.url}}" style="height: 20px;" alt="Image of {{item.product.name}}"></td>
-                <td>{{item.product.name}}</td>
-                <td>{{item.product.price}}</td>
-                <td>
-                    <button class="btn btn-outline-success">-</button>
-                    {{item.quantity}}
-                    <button class="btn btn-outline-success">+</button>
+            <tr class="h-10" id="cart-item-{{item.id}}">
+                <td class="w-auto">
+                    {% if item.product.pic %}
+                        <img src="{{item.product.pic.url}}" height="20px" alt="An image of {{item.product.name}}">
+                    {% endif %}
                 </td>
-                <td>{{item.get_total}}</td>
                 <td>
-                    <a href="{% url 'rem_from_cart' item.id %}" class="btn btn-danger">Remove</a>
+                    <a href="{% url 'prod_details' item.product.id %}">{{item.product.name }}</a>
+                </td>
+                <td>
+                    {{item.product.price}}
+                </td>
+                <td class="grid">
+                    <div class="row w-100">            
+                    <button onclick="updateCart('{% url 'rem_quantity' item.id %}', {{ item.id }}, false, '{{ csrf_token }}')" class="btn btn-outline-secondary col align-middle">
+                        -
+                    </button>
+                        <p id="quantity-{{ item.id }}" class="col align-middle text-center">{{item.quantity}}</p>
+
+                    <button onclick="updateCart('{% url 'add_quantity' item.id %}', {{ item.id }}, true, '{{ csrf_token }}')" class="btn btn-outline-secondary col align-middle">+</button>
+                    </div>
+                </td>
+                <td id="total-price-{{ item.id }}">
+                    {{item.get_total}}
+                </td>
+                <td>
+                    <a href="{% url 'rem_from_cart' item.id %}" class="btn btn-danger">Remove from Cart</a>
                 </td>
             </tr>
             {% endfor %}
-        </tbody>
-        <tfoot>
             <tr>
-                <td>
-                    <a href="{% url 'homepage' %}" class="btn btn-outline-success">Shop More</a>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <th>Total: {{total}}</th>
-                <td>
-                    <a href="" class="btn btn-info">Place your Order</a>
-                </td>
+                <th colspan="4" class="text-center text-warning bg-dark">Total</th>
+                <td class="bg-secondary"><strong>Rs.<span id="overall-total">{{ total }}</span></strong></td>
+                <td><a href="" class="btn btn-primary">Place Your Order</a></td>
             </tr>
-        </tfoot>
+        </tbody>
     </table>
-
+    
+    {% else %}
+    Cart is Empty!!!
+    {% endif %}
+    <a href="{% url 'homepage' %}" class="btn btn-primary">Shop More!!!</a>
 </div>
 
 {% endblock %}

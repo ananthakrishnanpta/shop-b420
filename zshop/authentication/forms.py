@@ -28,8 +28,9 @@ class CustomLoginForm(AuthenticationForm):
 class CustomRegisterForm(UserCreationForm):
     username = forms.CharField(
         widget= forms.TextInput(attrs={
-            'class' : 'form-control',
-            'placeholder' : 'Enter your username'
+            'class' : 'form-control x',
+            'placeholder' : 'Enter your username',
+            
         })
     )
 
