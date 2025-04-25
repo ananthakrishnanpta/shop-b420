@@ -15,7 +15,7 @@ body {
         margin: auto;
         margin-top: 60px;
         max-width: 80%;
-
+        margin-bottom: 40px;
         /* home page */
         .container {
             .row {

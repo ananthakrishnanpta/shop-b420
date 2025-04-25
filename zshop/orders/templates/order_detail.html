@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Order Details - Order #{{ order.id }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Order Details</h2>
+    <hr>
+
+    <!-- Order Summary -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Order Summary
+        </div>
+        <div class="card-body">
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Order Date:</strong> {{ order.order_date|date:"d M Y, h:i A" }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+        </div>
+    </div>
+
+    <!-- Address Information -->
+    {% if order.address %}
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            Shipping Address
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{ order.address.full_name }}</p>
+            <p><strong>Phone:</strong> {{ order.address.phone_number }}</p>
+            <p><strong>Address:</strong> 
+                {{ order.address.address_line1 }}{% if order.address.address_line2 %}, {{ order.address.address_line2 }}{% endif %},
+                {{ order.address.landmark }},
+                {{ order.address.city }},
+                {{ order.address.state }} - {{ order.address.pincode }}
+            </p>
+            <p><strong>Country:</strong> {{ order.address.country }}</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        No shipping address selected for this order.
+    </div>
+    {% endif %}
+
+    <!-- Order Items -->
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            Ordered Items
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detail in order.order_details.all %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'prod_details' detail.order_item.id %}">
+                                {{ detail.order_item.name }}
+                            </a>
+                        </td>
+                        <td>{{ detail.quantity }}</td>
+                        <td>₹{{ detail.price|floatformat:2 }}</td>
+                        <td>₹{{ detail.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

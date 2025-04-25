@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Order History
+{% endblock %}
+
+{% block content %}
+<h1>Order History</h1>
+
+{% if orders %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>#{{ order.id }}</td>
+            <td>{{ order.order_date|date:"d M Y, H:i" }}</td>
+            <td>{{ order.status }}</td>
+            <td>₹{{ order.total_amount }}</td>
+            <td>
+                {% if order.status == 'PENDING' %}
+                    <a href="{% url 'payment:create_razorpay_order' order.id %}" class="btn btn-success btn-sm">
+                        Pay Now
+                    </a>
+                {% endif %}
+                <a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">
+                    View Details
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No orders found.</p>
+<a href="{% url 'prod_page' %}" class="btn btn-primary">Start Shopping</a>
+{% endif %}
+{% endblock %}

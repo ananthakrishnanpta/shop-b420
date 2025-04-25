@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <h3>Select an Address</h3>
+    <ul>
+        {% for address in addresses %}
+        <li>
+            <label>
+                <input type="radio" name="address" value="{{ address.id }}">
+                {{ address.full_name }}, {{ address.address_line1 }}, {{ address.city }}, {{ address.state }} - {{ address.pincode }}
+            </label>
+        </li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-primary">Select Address</button>
+</form>
+<a href="{% url 'add_address'  %}?next={{request.path}}" class="btn btn-secondary">Add address</a>
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center">Order Confirmation</h1>
+    <div class="card">
+        <div class="card-body">
+            <h4>Order Details</h4>
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+            
+            <h4>Shipping Address</h4>
+            <p>{{ order.address.full_name }}</p>
+            <p>{{ order.address.address_line1 }}, {{ order.address.city }}, {{ order.address.state }} - {{ order.address.pincode }}</p>
+
+            <h4>Payment</h4>
+            <form id="payment-form" method="post" action="{% url 'payment:payment_success' %}">
+                <script src="https://checkout.razorpay.com/v1/checkout.js"
+                        data-key="{{ key_id }}"
+                        data-amount="{{ razorpay_order.amount }}"
+                        data-currency="{{ razorpay_order.currency }}"
+                        data-order_id="{{ razorpay_order.id }}"
+                        data-buttontext="Pay Now"
+                        data-name="My Shopping Site"
+                        data-description="Order Payment"
+                        data-theme.color="#F37254">
+                </script>
+                <input type="hidden" name="razorpay_order_id" value="{{ razorpay_order.id }}">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

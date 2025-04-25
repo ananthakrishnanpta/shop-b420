@@ -1,0 +1,20 @@
+{% if razorpay_order %}
+<div class="payment-section mt-4">
+    <h4>Proceed to Payment</h4>
+    <form id="payment-form" method="post" action="{% url 'payment_success' %}">
+        <script src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="{{ key_id }}"
+                data-amount="{{ razorpay_order.amount }}"
+                data-currency="{{ razorpay_order.currency }}"
+                data-order_id="{{ razorpay_order.id }}"
+                data-buttontext="Pay Now"
+                data-name="My Shopping Site"
+                data-description="Complete your purchase"
+                data-theme.color="#F37254">
+        </script>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    </form>
+</div>
+{% else %}
+<p class="text-danger mt-4">Please select an address to proceed with payment.</p>
+{% endif %}
