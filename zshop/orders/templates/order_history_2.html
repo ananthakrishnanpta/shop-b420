@@ -13,7 +13,7 @@ Order History
     {% if orders %}
         {% for order in orders %}
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white d-flex justify-content-between">
+            <div class="card-header bg-secondary text-white d-flex justify-content-between">
                 <span>Order ID: #{{ order.id }}</span>
                 <span>Order Date: {{ order.order_date|date:"d M Y, H:i" }}</span>
             </div>
@@ -54,7 +54,7 @@ Order History
                         View Details
                     </a>
                 </div>
-                <a href="{% url 'prod_page' %}" class="btn btn-secondary btn-sm">
+                <a href="" class="btn btn-secondary btn-sm">
                     Buy Again
                 </a>
             </div>
@@ -62,7 +62,7 @@ Order History
         {% endfor %}
     {% else %}
     <div class="alert alert-warning">
-        No orders found. <a href="{% url 'prod_page' %}" class="alert-link">Start Shopping</a>
+        No orders found. <a href="{% url 'homepage' %}" class="alert-link">Start Shopping</a>
     </div>
     {% endif %}
 </div>

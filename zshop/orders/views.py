@@ -93,6 +93,9 @@ def select_address_for_order(request, order_id):
     if request.method == 'POST':
         # Get the selected address ID from the form
         address_id = request.POST.get('address')
+        if not address_id:
+            return redirect('select_address_for_order', order_id=order.id)
+
         address = get_object_or_404(Address, id=address_id, user=request.user)
         
         # Associate the selected address with the order
