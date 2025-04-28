@@ -52,6 +52,13 @@ def order_history(request):
     orders = Order.objects.filter(user=request.user).prefetch_related('order_details').order_by('-order_date')
     return render(request, 'order_history.html', {'orders': orders})
 
+# the below view is just another version of the previous view to try out a different appearance
+@login_required
+def order_history_2(request):
+    """Display the order history of the user."""
+    orders = Order.objects.filter(user=request.user).prefetch_related('order_details').order_by('-order_date')
+    return render(request, 'order_history_2.html', {'orders': orders})
+
 @login_required
 def order_detail(request, order_id):
     """Display details of a specific order."""

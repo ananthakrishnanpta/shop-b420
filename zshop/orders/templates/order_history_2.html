@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Order History
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Order History</h2>
+    <hr>
+    
+    {% if orders %}
+        {% for order in orders %}
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                <span>Order ID: #{{ order.id }}</span>
+                <span>Order Date: {{ order.order_date|date:"d M Y, H:i" }}</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Status:</strong> {{ order.status }}</p>
+                <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+
+                <!-- Ordered Items -->
+                <div class="ordered-items mt-3">
+                    {% for item in order.order_details.all %}
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="thumbnail me-3">
+                            <img src="{{ item.order_item.img.url }}" alt="{{ item.order_item.name }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                        </div>
+                        <div class="item-details flex-grow-1">
+                            <p class="mb-1">
+                                <a href="{% url 'prod_details' item.order_item.id %}" class="text-decoration-none text-dark">
+                                    <strong>{{ item.order_item.name }}</strong>
+                                </a>
+                            </p>
+                            <p class="mb-1">Quantity: {{ item.quantity }}</p>
+                            <p class="mb-1">Price: ₹{{ item.price|floatformat:2 }}</p>
+                            <p>Subtotal: ₹{{ item.price|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div>
+                    {% if order.status == 'PENDING' %}
+                    <a href="{% url 'payment:create_razorpay_order' order.id %}" class="btn btn-success btn-sm">
+                        Pay Now
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">
+                        View Details
+                    </a>
+                </div>
+                <a href="{% url 'prod_page' %}" class="btn btn-secondary btn-sm">
+                    Buy Again
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="alert alert-warning">
+        No orders found. <a href="{% url 'prod_page' %}" class="alert-link">Start Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

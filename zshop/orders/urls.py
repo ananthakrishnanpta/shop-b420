@@ -9,6 +9,9 @@ urlpatterns = [
     # Route to display the user's order history
     path('orders/history/', views.order_history, name='order_history'),
     
+    # Route to order history version 2
+    path('orders/history/v2', views.order_history_2, name='order_history_2'),
+    
     # Route to view details of a specific order
     path('<int:order_id>/', views.order_detail, name='order_detail'),
     
