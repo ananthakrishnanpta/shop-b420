@@ -57,6 +57,9 @@ Order History
             </div>
         </div>
         {% endfor %}
+        <div class="banner">
+            <a href="{% url 'homepage' %}" class="btn btn-success">Shop more...</a>
+        </div>
     {% else %}
     <div class="alert alert-warning">
         No orders found. <a href="{% url 'homepage' %}" class="alert-link">Start Shopping</a>

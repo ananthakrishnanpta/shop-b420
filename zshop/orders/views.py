@@ -93,6 +93,8 @@ def select_address_for_order(request, order_id):
     if request.method == 'POST':
         # Get the selected address ID from the form
         address_id = request.POST.get('address')
+
+        # redirect back to the same page if no address is selected
         if not address_id:
             return redirect('select_address_for_order', order_id=order.id)
 
