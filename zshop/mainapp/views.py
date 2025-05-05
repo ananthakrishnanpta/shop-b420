@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Product
 
 from .forms import AddProductForm
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -20,8 +20,10 @@ def homeView(request):
     # context data
     context = {
         # context data to be pulled from the DB
-        'products' : Product.objects.all()
+        'products' : Product.objects.all(),
         # the above line of code is equivalent to SELECT * FROM product_table;
+        'search_bar' : True,
+        'current_page' : 'home'
     }
     return HttpResponse(template.render(context, request))
 
@@ -90,4 +92,19 @@ class DelProduct(DeleteView):
     model = Product
     template_name = 'del_product.html'
     success_url = '/'
-    
+
+
+
+
+def searchView(request):
+    query = request.GET.get('search_text')
+
+    result_products = Product.objects.filter(name__icontains = query)
+    context =  {
+        'prods' : result_products,
+        'query' : query,
+        'search_bar' : True
+    }
+
+    template = loader.get_template('search_results.html')
+    return HttpResponse(template.render(context, request))

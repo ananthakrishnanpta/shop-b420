@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Z Shop | Search results for {{query}}
+{% endblock %}
+
+{% block content %}
+
+<span>Search results for : {{query}}</span>
+
+<div class="container z-0">
+    <div class="row">
+        {% for product in prods %}
+        <div class="col-sm-2 card text-center shadow-sm mx-3">
+            <div class="row">
+                <img class="card-img-top" src="{{product.img.url}}" alt="Picture of {{product.name}}">
+            </div>
+            <div class="row card-body">
+                <h5>
+                    <a href="{% url 'prod_details' product.pk %}">
+                        {{product.name}}
+                    </a>
+                </h5>
+                <p class="card-text">
+                    Rs. {{product.price}}
+                </p>
+                <p class="card-caption">
+                    {{product.desc}}
+                </p>
+            </div>
+            <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-primary w-60 center ">Add to Cart</a>
+        </div>
+        {% empty %}
+        <span>No results !!!</span>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
